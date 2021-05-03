@@ -1,18 +1,71 @@
-/**
- * @Variable
- */
+window.onload = function(){
+    // get element on the DOM
+    const p = document.getElementsByTagName('p');
+    const maClass = document.getElementsByClassName('maClass');
+    const paragraphe1 = document.getElementById('paragraphe1');
+    console.log('getElementsByTagName: ',p);
+    console.log('getElementsByClassName: ', maClass);
+    console.log('getElementById: ', paragraphe1);
 
-var maVariable = ""; // à ne plus utiliser
-const maConstante = 1; // défini une constante
-let maVariableLet = ""; // une variable qui sera amené à être changé durant l'éxécution du code
+    console.log('Array from: ',Array.from(p));
+    const pQuerySelector = document.querySelector('.paragraphe');
+    console.log(pQuerySelector);
 
-console.log('nombre entier type: ', typeof 1);
-console.log('nombre à virgule type: ', typeof 1.4);
+    // CreateElement
+    const body = document.body;
+    const div = document.createElement('div');
+    const pDiv = document.createElement('p');
+    const textNodeP = document.createTextNode('div text');
+    pDiv.appendChild(textNodeP);
+    div.appendChild(pDiv);
+    
+    console.log('created element: ', div);
+    // add class, remove class, add Attribute, set Attribute
+      div.classList.add('div');
+      div.classList.remove('div');
+      div.setAttribute('id', 'div1');
+      div.removeAttribute('id');
+      div.removeAttribute('class');
+    body.appendChild(div);
 
-console.log('chaine de caractère type: ', typeof "hello World!");
-console.log('boolean type: ', typeof false);
+    // Event Listener 
+    div.addEventListener('click', (event) => {
+        console.log(event.target);
+    });
 
-console.log('type tableau: ', typeof []);
-console.log('type tableau: ', typeof {});
+    const input = document.querySelector('input');
 
-console.log('calcul: ', 4.5 + 9);
+    console.log(input);
+    input.addEventListener('keydown', (event) => {
+        console.log(event);
+    });
+
+    input.addEventListener('keyup', (event) => {
+        console.log(event.target.value);
+    });
+
+    window.addEventListener('scroll', function(event){
+        console.log(event.target);
+        console.log(this.scrollY);
+        console.log(this.scrollX);
+    });
+
+    const form = document.querySelector('form');
+    const submit = (event) => {
+        event.preventDefault();
+        console.log(event);
+    }
+
+    form.addEventListener('submit', submit);
+
+    form.removeEventListener('submit', submit);
+    // Les dates
+
+    const date = new Date();
+    console.log(date.getMinutes());
+    console.log(date.getDay());
+    console.log(date.getHours());
+    console.log(date.getFullYear());
+    console.log(date.getSeconds());
+    
+}
