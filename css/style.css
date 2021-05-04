@@ -10,3 +10,11 @@ body {
     color: white;
     font-family: Roboto;
 }
+
+ul li {
+    margin: 10px;
+}
+
+ul {
+    list-style: none;
+}
