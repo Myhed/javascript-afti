@@ -5,6 +5,7 @@
     padding: 0;
     margin:0;
     outline: none;
+    box-sizing: border-box;
 }
 
 body {
@@ -19,13 +20,16 @@ body {
 }
 
 .taskContainer  {
-    width: 980px;
-    padding: 10px;
+    width: 60%;
+    padding: 30px 75px;
     margin:25px;
-    min-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:center;
     background: white;
     box-shadow:1px 5px 5px black;
     border-radius: 10px;
+    color: black;
 }
 
 h1 {
@@ -34,10 +38,44 @@ h1 {
     text-shadow: 1px 5px 5px black;
 }
 
+.infoTask {
+    display: flex;
+    justify-content: space-between;
+    width: 450px;
+    background: firebrick;
+    color:white;
+    padding: 30px;
+    margin: 8px;
+    border-radius: 20px;
+}
+
+.deleteTask {
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    padding: 0 6px;
+    border-radius: 40%;
+}
+
+.deleteTask::before {
+    content: "x";
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.error {
+    background: tomato;
+    width: 350px;
+    text-align: center;
+    padding: 8px 6px;
+    font-size: 16px;
+    margin: 5px;
+}
+
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 
 form input {
@@ -53,4 +91,12 @@ form button {
     color:white;
     background: brown;
     cursor: pointer;
+}
+
+
+@media screen and (max-width: 700px) {
+    .taskContainer {
+        padding: 0;
+        width: 100%;
+    }
 }
