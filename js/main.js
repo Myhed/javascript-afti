@@ -1,71 +1,78 @@
-window.onload = function(){
-    // get element on the DOM
-    const p = document.getElementsByTagName('p');
-    const maClass = document.getElementsByClassName('maClass');
-    const paragraphe1 = document.getElementById('paragraphe1');
-    console.log('getElementsByTagName: ',p);
-    console.log('getElementsByClassName: ', maClass);
-    console.log('getElementById: ', paragraphe1);
+window.onload = async function(){
+    const helloWorld = 'hello World synchrone';
 
-    console.log('Array from: ',Array.from(p));
-    const pQuerySelector = document.querySelector('.paragraphe');
-    console.log(pQuerySelector);
+    setTimeout(function(){
+        console.log('hello World asynchrone');
+    }, 2000);
 
-    // CreateElement
-    const body = document.body;
-    const div = document.createElement('div');
-    const pDiv = document.createElement('p');
-    const textNodeP = document.createTextNode('div text');
-    pDiv.appendChild(textNodeP);
-    div.appendChild(pDiv);
-    
-    console.log('created element: ', div);
-    // add class, remove class, add Attribute, set Attribute
-      div.classList.add('div');
-      div.classList.remove('div');
-      div.setAttribute('id', 'div1');
-      div.removeAttribute('id');
-      div.removeAttribute('class');
-    body.appendChild(div);
+    setTimeout(function(){
+        console.log('0');
+    }, 0);
 
-    // Event Listener 
-    div.addEventListener('click', (event) => {
-        console.log(event.target);
-    });
+    console.log(helloWorld); // il s'éxécute en premier (synchrone)
 
-    const input = document.querySelector('input');
-
-    console.log(input);
-    input.addEventListener('keydown', (event) => {
-        console.log(event);
-    });
-
-    input.addEventListener('keyup', (event) => {
-        console.log(event.target.value);
-    });
-
-    window.addEventListener('scroll', function(event){
-        console.log(event.target);
-        console.log(this.scrollY);
-        console.log(this.scrollX);
-    });
-
-    const form = document.querySelector('form');
-    const submit = (event) => {
-        event.preventDefault();
-        console.log(event);
+    function sayHello(name, done){
+        done(`hello ${name}`);
     }
 
-    form.addEventListener('submit', submit);
+    sayHello('toto', function(result){
+        console.log(result);
+    });
 
-    form.removeEventListener('submit', submit);
-    // Les dates
+    // Promise
 
-    const date = new Date();
-    console.log(date.getMinutes());
-    console.log(date.getDay());
-    console.log(date.getHours());
-    console.log(date.getFullYear());
-    console.log(date.getSeconds());
+    function sayHello2(name){
+        return new Promise((resolve, reject) => {
+            if(name.length > 0){
+                resolve(`hello ${name}`);
+            }else{
+                reject(new Error('name is not defined'));
+            }
+        });
+    }
+
+    sayHello2('')
+        .then(result => { 
+            console.log('vanilla result: ', result);
+            return result+'0';
+        })
+        .then(resultChanged => {
+            console.log('resultChanged: ', resultChanged);
+            return resultChanged;
+        })
+        .catch(e => {
+            console.log('error catched: ',e.message);
+        });
+
+    // Request API
+
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+        .then(vanillaResult => {
+            return vanillaResult.json();
+        })
+        .then(resultParsedToJson => {
+            console.log('resultJson: ', resultParsedToJson);
+        })
+        .catch(e => {
+            console.log('error: ', e);
+        });
     
+        async function sayHello3(){
+            return 'toto';
+        }
+
+        async function main(isAsync = true){
+            // console.log('async syntaxe : ', await sayHello3());
+            if(!isAsync){
+                return new Error('function is not async');
+            }
+            return await sayHello3();
+        }
+
+        try {
+            const result = await main(true);
+            console.log('try catch result: ', result);
+        }catch(e){
+            console.log('error asyn try catch: ', e);
+        }
 }
