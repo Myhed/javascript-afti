@@ -1,0 +1,15 @@
+.card {
+    background: brown;
+    color:white;
+}
+
+.container {
+    width: 950px;
+    display: grid;
+    margin:0 auto;
+    justify-content:center;
+    align-items: center;
+    grid-template-columns: repeat(5, 150px);
+    grid-template-rows: repeat(5, minmax(150px, auto));
+    gap: 10px;
+}
